@@ -79,27 +79,37 @@ CSV / Excel ファイルをアップロードするだけで、
 pip install streamlit pandas matplotlib
 streamlit run app.py
 
-ーーー
-##プレビュー/Demo
 
-—-→
-##「ファイル構成/ File Structure
-'・'text
+---
+
+## 🖥 プレビュー / Demo
+
+🔗 https://amida8.github.io/todo-app/
+
+---
+
+## 📁 ファイル構成 / File Structure
+
+```text
 todo-app/
-index.htmlstyle.css
-- script.js
-- README. md
-#メインHTMLファイル
-# スタイル定義
-# アプリのロジック
-#プロジェクト説明
-——-
-＃#
-오
-作者/ Author
-- Name：リ ナ（LI NA）
-- Email: nina1769796516@gmail.com
-＃#
+├── index.html    # メインHTMLファイル
+├── style.css     # スタイル定義
+├── script.js     # アプリのロジック
+└── README.md     # プロジェクト説明
+```
+
+---
+
+## 👤 作者 / Author
+
+- Name: リナ（LI NA）  
+- Email: nina1769796516@gmail.com  
+
+---
+
+## 📄 ライセンス / License
+
 MIT License
-/ License
+
+
 
