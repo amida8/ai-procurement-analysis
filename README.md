@@ -78,3 +78,28 @@ CSV / Excel ファイルをアップロードするだけで、
 ```bash
 pip install streamlit pandas matplotlib
 streamlit run app.py
+
+ーーー
+##プレビュー/Demo
+
+—-→
+##「ファイル構成/ File Structure
+'・'text
+todo-app/
+index.htmlstyle.css
+- script.js
+- README. md
+#メインHTMLファイル
+# スタイル定義
+# アプリのロジック
+#プロジェクト説明
+——-
+＃#
+오
+作者/ Author
+- Name：リ ナ（LI NA）
+- Email: nina1769796516@gmail.com
+＃#
+MIT License
+/ License
+
