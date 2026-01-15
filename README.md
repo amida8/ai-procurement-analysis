@@ -80,7 +80,7 @@ CSV / Excel ファイルをアップロードするだけで、
 ```bash
 pip install streamlit pandas matplotlib
 streamlit run app.py
-
+```
 
 ---
 
