@@ -93,11 +93,12 @@ streamlit run app.py
 ## 📁 ファイル構成 / File Structure
 
 ```text
-todo-app/
-├── index.html    # メインHTMLファイル
-├── style.css     # スタイル定義
-├── script.js     # アプリのロジック
-└── README.md     # プロジェクト説明
+supplier-kpi-dashboard/
+├── app.py
+├── data/
+│   └── sample_supplier_kpi.csv
+├── requirements.txt
+└── README.md
 ```
 
 ---
