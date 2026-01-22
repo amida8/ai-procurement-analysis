@@ -2,6 +2,7 @@
 from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
+import japanize_matplotlib
 import streamlit as st
 import sys
 
