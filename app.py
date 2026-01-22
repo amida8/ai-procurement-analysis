@@ -153,7 +153,7 @@ with left2:
         )
 
     plt.xlabel("E2E リードタイム（日）")
-    plt.ylabel("不良率(%)")
+    plt.ylabel("Defect Rate (%)")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
     st.pyplot(fig)
