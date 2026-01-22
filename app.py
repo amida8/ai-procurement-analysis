@@ -77,9 +77,24 @@ df["risk"] = df.apply(risk, axis=1)
 # ======================
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("仕入先数", len(df))
-c2.metric("48時間以内の納期遵守率（平均）",f"{df['on_time_48h'].mean():.1f}%")
-c3.metric("平均 再加工率", f"{df['return_rate'].mean():.1f}%")
-c4.metric("平均 全体リードタイム（日）", f"{df['bulk_lead_time_days'].mean():.1f} 日")
+
+c2.metric(
+    "48時間以内 納期遵守率",
+    f"{df['on_time_48h'].mean():.1f}%"
+)
+c2.caption("（平均）")
+
+c3.metric(
+    "再加工率",
+    f"{df['return_rate'].mean():.1f}%"
+)
+c3.caption("（平均）")
+
+c4.metric(
+    "全体リードタイム",
+    f"{df['bulk_lead_time_days'].mean():.1f} 日"
+)
+c4.caption("（平均）")
 
 st.divider()
 
