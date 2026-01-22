@@ -5,12 +5,18 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import sys
 
+# ======================
+# Path / Import
+# ======================
 BASE = Path(__file__).resolve().parent
 SRC = BASE / "src"
 sys.path.append(str(SRC))
 
-from data_source import load_supplier_data_lv1  # 兜底数据
+from data_source import load_supplier_data_lv1  # サンプルデータ
 
+# ======================
+# Page config
+# ======================
 st.set_page_config(page_title="Supplier KPI Dashboard", layout="wide")
 
 st.title("📊 Supplier KPI Dashboard（Lv1）")
@@ -55,7 +61,7 @@ if missing:
     st.stop()
 
 # ======================
-# Risk column (create ONCE here)
+# Risk classification (Lv1)  ★必ず先に作る
 # ======================
 def risk(row):
     if row["on_time_48h"] < 90 or row["return_rate"] > 15:
@@ -85,19 +91,16 @@ left, right = st.columns(2)
 with left:
     st.subheader("① PCS（当月調達数量）ランキング")
     d = df.sort_values("pcs", ascending=False)
-
     fig = plt.figure(figsize=(8, 4))
     plt.bar(d["supplier"], d["pcs"])
     plt.xticks(rotation=25, ha="right")
     plt.ylabel("PCS")
     plt.tight_layout()
     st.pyplot(fig)
-    plt.close(fig)
 
 with right:
     st.subheader("② 面辅料工程：48h 納期遵守率")
     d = df.sort_values("on_time_48h", ascending=False)
-
     fig = plt.figure(figsize=(8, 4))
     plt.bar(d["supplier"], d["on_time_48h"])
     plt.ylim(0, 100)
@@ -105,51 +108,50 @@ with right:
     plt.ylabel("％")
     plt.tight_layout()
     st.pyplot(fig)
-    plt.close(fig)
 
 left2, right2 = st.columns(2)
 
 with left2:
-    st.subheader("③ 品質 × スピード（リスク別表示）")
-
+    st.subheader("③ 品質 × スピード")
     fig = plt.figure(figsize=(8, 4))
 
-    scatter_colors = df["risk"].map({
-        "LOW": "blue",
-        "MEDIUM": "orange",
-        "HIGH": "red"
-    }).fillna("blue")
-
-    plt.scatter(df["bulk_lead_time_days"], df["return_rate"], c=scatter_colors)
-
     for _, r in df.iterrows():
-        plt.text(r["bulk_lead_time_days"], r["return_rate"], r["supplier"], fontsize=9)
+        color = "#F44336" if r["risk"] == "HIGH" else "#2196F3"
+        plt.scatter(
+            r["bulk_lead_time_days"],
+            r["return_rate"],
+            color=color
+        )
+        plt.text(
+            r["bulk_lead_time_days"],
+            r["return_rate"],
+            r["supplier"],
+            fontsize=9
+        )
 
     plt.xlabel("E2E リードタイム（日）")
     plt.ylabel("返修率（％）")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
     st.pyplot(fig)
-    plt.close(fig)
 
 with right2:
     st.subheader("④ リスク分類（Lv1 ルール）")
 
     counts = df["risk"].value_counts()
 
-    bar_color_map = {
-        "LOW": "#4CAF50",      # 绿
-        "MEDIUM": "#FFC107",   # 黄
-        "HIGH": "#F44336"      # 红
+    color_map = {
+        "LOW": "#4CAF50",
+        "MEDIUM": "#FFC107",
+        "HIGH": "#F44336"
     }
-    bar_colors = [bar_color_map[i] for i in counts.index]
+    colors = [color_map[i] for i in counts.index]
 
     fig = plt.figure(figsize=(8, 4))
-    plt.bar(counts.index, counts.values, color=bar_colors)
+    plt.bar(counts.index, counts.values, color=colors)
     plt.ylabel("件数")
     plt.tight_layout()
     st.pyplot(fig)
-    plt.close(fig)
 
 st.divider()
 
@@ -170,14 +172,18 @@ risk_high = df[df["risk"] == "HIGH"]
 c1, c2 = st.columns(2)
 with c1:
     st.markdown("✅ **優先候補 Top3**")
-    st.dataframe(top3[["supplier", "on_time_48h", "return_rate", "bulk_lead_time_days", "pcs"]])
+    st.dataframe(
+        top3[["supplier", "on_time_48h", "return_rate", "bulk_lead_time_days", "pcs"]]
+    )
 
 with c2:
     st.markdown("⚠️ **要注意（HIGH）**")
     if len(risk_high) == 0:
         st.write("該当なし")
     else:
-        st.dataframe(risk_high[["supplier", "on_time_48h", "return_rate", "bulk_lead_time_days", "pcs"]])
+        st.dataframe(
+            risk_high[["supplier", "on_time_48h", "return_rate", "bulk_lead_time_days", "pcs"]]
+        )
 
 st.divider()
 st.subheader("📄 生データ")
