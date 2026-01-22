@@ -1,5 +1,6 @@
 # 📊 Supplier KPI Dashboard（Python × データ可視化）
-
+Lv1：基于历史订单数据的静态 KPI 可视化与风险初筛
+（Lv2 将支持时间维度 / Lv3 将支持预测）
 ## 概要 / Overview
 
 本プロジェクトは、  
