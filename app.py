@@ -151,8 +151,8 @@ with left2:
             r["supplier"],
             fontsize=9
         )
-
-    plt.xlabel("E2E リードタイム（日）")
+        
+    plt.xlabel("E2E Lead Time (days)")
     plt.ylabel("Defect Rate (%)")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
