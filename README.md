@@ -98,7 +98,7 @@ streamlit run app.py
 
 ## 🖥 プレビュー / Demo
 
-🔗
+🔗https://supplier-kpi-dashboard.streamlit.app/
 
 ---
 
