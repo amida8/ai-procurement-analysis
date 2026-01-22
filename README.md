@@ -106,11 +106,14 @@ streamlit run app.py
 
 ```text
 supplier-kpi-dashboard/
-├── app.py              # Streamlit アプリ本体
-├── src/                # 分析・可視化ロジック
-├── outputs/            # グラフ・出力結果（任意）
-├── requirements.txt    # 使用ライブラリ一覧
-├── README.md           # プロジェクト説明
+├── app.py                 # Streamlit エントリーポイント
+├── src/
+│   ├── data_source.py     # KPIデータ取得・前処理
+│   ├── visualize_lv1.py   # Lv1 可視化・ルール判定
+│   └── export_pdf.py      # レポート出力（PDF）
+├── outputs/               # 分析結果・出力ファイル
+├── requirements.txt
+├── README.md
 ├── LICENSE
 └── .gitignore
 ```
