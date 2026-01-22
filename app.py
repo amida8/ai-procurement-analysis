@@ -44,10 +44,10 @@ else:
     df = load_supplier_data_lv1()
     st.sidebar.info("※ サンプルデータを使用中")
 # ===============================
-# Supplier 名称を A社 / B社 に置き換え
+# Supplier 名称を A / B に置き換え
 # ===============================
 supplier_map = {
-    name: f"{chr(65 + i)}社"
+    name: f"{chr(65 + i)}"
     for i, name in enumerate(df["supplier"].unique())
 }
 
