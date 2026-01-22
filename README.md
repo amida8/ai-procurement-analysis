@@ -106,11 +106,13 @@ streamlit run app.py
 
 ```text
 supplier-kpi-dashboard/
-├── app.py
-├── data/
-│   └── sample_supplier_kpi.csv
-├── requirements.txt
-└── README.md
+├── app.py              # Streamlit アプリ本体
+├── src/                # 分析・可視化ロジック
+├── outputs/            # グラフ・出力結果（任意）
+├── requirements.txt    # 使用ライブラリ一覧
+├── README.md           # プロジェクト説明
+├── LICENSE
+└── .gitignore
 ```
 
 ---
