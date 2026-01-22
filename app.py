@@ -78,7 +78,7 @@ df["risk"] = df.apply(risk, axis=1)
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("仕入先数", len(df))
 c2.metric("平均 48h 納期遵守率", f"{df['on_time_48h'].mean():.1f}%")
-c3.metric("平均 返修率", f"{df['return_rate'].mean():.1f}%")
+c3.metric("平均 不良率", f"{df['return_rate'].mean():.1f}%")
 c4.metric("平均 E2E リードタイム", f"{df['bulk_lead_time_days'].mean():.1f} 日")
 
 st.divider()
@@ -99,7 +99,7 @@ with left:
     st.pyplot(fig)
 
 with right:
-    st.subheader("② 面辅料工程：48h 納期遵守率")
+    st.subheader("② 副資材調達：48時間以内 納期遵守率")
     d = df.sort_values("on_time_48h", ascending=False)
     fig = plt.figure(figsize=(8, 4))
     plt.bar(d["supplier"], d["on_time_48h"])
@@ -112,7 +112,7 @@ with right:
 left2, right2 = st.columns(2)
 
 with left2:
-    st.subheader("③ 品質 × スピード")
+    st.subheader("③ 品質 × リードタイム")
     fig = plt.figure(figsize=(8, 4))
 
     for _, r in df.iterrows():
@@ -130,13 +130,13 @@ with left2:
         )
 
     plt.xlabel("E2E リードタイム（日）")
-    plt.ylabel("返修率（％）")
+    plt.ylabel("不良率(%)")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
     st.pyplot(fig)
 
 with right2:
-    st.subheader("④ リスク分類（Lv1 ルール）")
+    st.subheader("④ リスク分類（一次判定ルール）")
 
     counts = df["risk"].value_counts()
 
