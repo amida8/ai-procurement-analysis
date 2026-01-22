@@ -86,7 +86,7 @@ streamlit run app.py
 
 ## 🖥 プレビュー / Demo
 
-🔗 https://amida8.github.io/todo-app/
+🔗
 
 ---
 
