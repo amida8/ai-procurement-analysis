@@ -172,7 +172,7 @@ with right2:
 
     fig = plt.figure(figsize=(8, 4))
     plt.bar(counts.index, counts.values, color=colors)
-    plt.ylabel("件数")
+    plt.ylabel("Count")
     plt.tight_layout()
     st.pyplot(fig)
 
