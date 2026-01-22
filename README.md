@@ -70,12 +70,10 @@ CSV / Excel ファイルをアップロードするだけで、
 ---
 
 ## 🛠 使用技術 / Tech Stack
-
-- Python  
-- pandas  
-- matplotlib  
-- Streamlit  
-
+- Python（データ加工・判定ロジック実装）
+- pandas（KPI 集計・前処理）
+- matplotlib（比較・相関可視化）
+- Streamlit（業務向けダッシュボード化)
 
 ---
 
