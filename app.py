@@ -43,7 +43,13 @@ if uploaded_file is not None:
 else:
     df = load_supplier_data_lv1()
     st.sidebar.info("※ サンプルデータを使用中")
+# ===== 供应商匿名化（A社 / B社 / C社）=====
+supplier_map = {
+    name: f"{chr(65 + i)}社"
+    for i, name in enumerate(df["supplier"].unique())
+}
 
+df["supplier_display"] = df["supplier"].map(supplier_map)
 # ======================
 # Required columns check
 # ======================
