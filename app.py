@@ -11,7 +11,6 @@ sys.path.append(str(SRC))
 
 from data_source import load_supplier_data_lv1  # 兜底数据
 
-
 st.set_page_config(page_title="Supplier KPI Dashboard", layout="wide")
 
 st.title("📊 Supplier KPI Dashboard（Lv1）")
@@ -56,6 +55,18 @@ if missing:
     st.stop()
 
 # ======================
+# Risk column (create ONCE here)
+# ======================
+def risk(row):
+    if row["on_time_48h"] < 90 or row["return_rate"] > 15:
+        return "HIGH"
+    if row["on_time_48h"] < 93 or row["return_rate"] > 10:
+        return "MEDIUM"
+    return "LOW"
+
+df["risk"] = df.apply(risk, axis=1)
+
+# ======================
 # KPI cards
 # ======================
 c1, c2, c3, c4 = st.columns(4)
@@ -74,58 +85,71 @@ left, right = st.columns(2)
 with left:
     st.subheader("① PCS（当月調達数量）ランキング")
     d = df.sort_values("pcs", ascending=False)
+
     fig = plt.figure(figsize=(8, 4))
     plt.bar(d["supplier"], d["pcs"])
     plt.xticks(rotation=25, ha="right")
     plt.ylabel("PCS")
+    plt.tight_layout()
     st.pyplot(fig)
+    plt.close(fig)
 
 with right:
     st.subheader("② 面辅料工程：48h 納期遵守率")
     d = df.sort_values("on_time_48h", ascending=False)
+
     fig = plt.figure(figsize=(8, 4))
     plt.bar(d["supplier"], d["on_time_48h"])
     plt.ylim(0, 100)
     plt.xticks(rotation=25, ha="right")
     plt.ylabel("％")
+    plt.tight_layout()
     st.pyplot(fig)
+    plt.close(fig)
 
 left2, right2 = st.columns(2)
 
 with left2:
-    st.subheader("③ 品質 × スピード")
+    st.subheader("③ 品質 × スピード（リスク別表示）")
+
     fig = plt.figure(figsize=(8, 4))
-    plt.scatter(df["bulk_lead_time_days"], df["return_rate"])
+
+    scatter_colors = df["risk"].map({
+        "LOW": "blue",
+        "MEDIUM": "orange",
+        "HIGH": "red"
+    }).fillna("blue")
+
+    plt.scatter(df["bulk_lead_time_days"], df["return_rate"], c=scatter_colors)
+
     for _, r in df.iterrows():
         plt.text(r["bulk_lead_time_days"], r["return_rate"], r["supplier"], fontsize=9)
+
     plt.xlabel("E2E リードタイム（日）")
     plt.ylabel("返修率（％）")
     plt.grid(True, alpha=0.3)
+    plt.tight_layout()
     st.pyplot(fig)
+    plt.close(fig)
 
 with right2:
     st.subheader("④ リスク分類（Lv1 ルール）")
 
-    def risk(row):
-        if row["on_time_48h"] < 90 or row["return_rate"] > 15:
-            return "HIGH"
-        if row["on_time_48h"] < 93 or row["return_rate"] > 10:
-            return "MEDIUM"
-        return "LOW"
-
     counts = df["risk"].value_counts()
 
-color_map = {
-    "LOW": "#4CAF50",      # 绿 = 安全
-    "MEDIUM": "#FFC107",   # 黄 = 注意
-    "HIGH": "#F44336"      # 红 = 危险
-}
-colors = [color_map[i] for i in counts.index]
+    bar_color_map = {
+        "LOW": "#4CAF50",      # 绿
+        "MEDIUM": "#FFC107",   # 黄
+        "HIGH": "#F44336"      # 红
+    }
+    bar_colors = [bar_color_map[i] for i in counts.index]
 
-fig = plt.figure(figsize=(8, 4))
-plt.bar(counts.index, counts.values, color=colors)
-plt.ylabel("件数")
-st.pyplot(fig)
+    fig = plt.figure(figsize=(8, 4))
+    plt.bar(counts.index, counts.values, color=bar_colors)
+    plt.ylabel("件数")
+    plt.tight_layout()
+    st.pyplot(fig)
+    plt.close(fig)
 
 st.divider()
 
