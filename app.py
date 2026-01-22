@@ -77,9 +77,9 @@ df["risk"] = df.apply(risk, axis=1)
 # ======================
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("仕入先数", len(df))
-c2.metric("平均 48h 納期遵守率", f"{df['on_time_48h'].mean():.1f}%")
-c3.metric("平均 不良率", f"{df['return_rate'].mean():.1f}%")
-c4.metric("平均 E2E リードタイム", f"{df['bulk_lead_time_days'].mean():.1f} 日")
+c2.metric("48時間以内の納期遵守率（平均）",f"{df['on_time_48h'].mean():.1f}%")
+c3.metric("平均 再加工率", f"{df['return_rate'].mean():.1f}%")
+c4.metric("平均 全体リードタイム（日）", f"{df['bulk_lead_time_days'].mean():.1f} 日")
 
 st.divider()
 
@@ -158,7 +158,7 @@ st.divider()
 # ======================
 # Auto insights
 # ======================
-st.subheader("🧠 自動結論")
+st.subheader("🧠 自動分析結果")
 
 df["score"] = (
     (df["on_time_48h"] / 100) * 0.5 +
