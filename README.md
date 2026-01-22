@@ -151,6 +151,7 @@ supplier-kpi-dashboard/
 ├── README.md
 ├── LICENSE
 └── .gitignore
+├── export_pdf.py      # 分析結果レポート出力（PDF）用モジュール（未実装）
 ```
 
 ---
