@@ -145,13 +145,12 @@ supplier-kpi-dashboard/
 ├── src/
 │   ├── data_source.py     # KPIデータ取得・前処理
 │   ├── visualize_lv1.py   # Lv1 可視化・ルール判定
-│   └── export_pdf.py      # レポート出力（PDF）
-├── outputs/               # 分析結果・出力ファイル
+│   └── export_pdf.py      # 分析結果レポート出力（PDF）用モジュール（未実装）
+├── outputs/               # 分析結果・出力ファイル（将来存PDF）
 ├── requirements.txt
 ├── README.md
 ├── LICENSE
 └── .gitignore
-├── export_pdf.py      # 分析結果レポート出力（PDF）用モジュール（未実装）
 ```
 
 ---
