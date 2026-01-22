@@ -113,12 +113,19 @@ with right2:
             return "MEDIUM"
         return "LOW"
 
-    df["risk"] = df.apply(risk, axis=1)
     counts = df["risk"].value_counts()
-    fig = plt.figure(figsize=(8, 4))
-    plt.bar(counts.index, counts.values)
-    plt.ylabel("件数")
-    st.pyplot(fig)
+
+color_map = {
+    "LOW": "#4CAF50",      # 绿 = 安全
+    "MEDIUM": "#FFC107",   # 黄 = 注意
+    "HIGH": "#F44336"      # 红 = 危险
+}
+colors = [color_map[i] for i in counts.index]
+
+fig = plt.figure(figsize=(8, 4))
+plt.bar(counts.index, counts.values, color=colors)
+plt.ylabel("件数")
+st.pyplot(fig)
 
 st.divider()
 
