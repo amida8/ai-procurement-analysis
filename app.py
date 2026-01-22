@@ -128,7 +128,7 @@ with right:
     plt.bar(d["supplier"], d["on_time_48h"])
     plt.ylim(0, 100)
     plt.xticks(rotation=25, ha="right")
-    plt.ylabel("％")
+    plt.ylabel("(％)")
     plt.tight_layout()
     st.pyplot(fig)
 
